@@ -1,0 +1,1 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='400' height='120'><text id='t' x='10' y='40' font-size='16'>cookie: </text><script>var c = document.cookie;document.title = 'COOKIELEN_' + c.length;document.getElementById('t').textContent = 'document.cookie=[' + c + ']';</script></svg>
