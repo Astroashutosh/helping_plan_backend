@@ -21,7 +21,7 @@ import adminAcademyRoutes from './routes/admin/academyRoutes.js';
 import userAuthRoutes from './routes/user/userAuthRoutes.js';
 import commonRoutes from './routes/common/generalRoutes.js';
 import { generalApiLimiter } from './middlewares/rateLimiter.js';
-
+import adminCMSRoutes from './routes/admin/cms.js';
 dotenv.config();
 
 const app = express();
@@ -92,6 +92,18 @@ app.use('/api/admin/purchase-donation', adminPurchaseDonationRoutes);
 app.use('/api/admin/reports', adminReportRoutes);
 app.use('/api/admin/weekly-report', adminWeeklyReportRoutes);
 app.use('/api/admin/academy', adminAcademyRoutes);
+
+
+// new route for cms
+
+app.use('/api/admin', adminCMSRoutes);
+
+
+// end new route 
+
+
+
+
 
 // User Routes (controllers/user and routes/user)
 app.use('/api/user/auth', userAuthRoutes);
