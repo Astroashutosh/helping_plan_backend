@@ -22,6 +22,9 @@ import userAuthRoutes from './routes/user/userAuthRoutes.js';
 import commonRoutes from './routes/common/generalRoutes.js';
 import { generalApiLimiter } from './middlewares/rateLimiter.js';
 import adminCMSRoutes from './routes/admin/cms.js';
+import disclaimerRoutes from './routes/admin/disclaimer.js';
+
+
 dotenv.config();
 
 const app = express();
@@ -98,7 +101,8 @@ app.use('/api/admin/academy', adminAcademyRoutes);
 
 app.use('/api/admin', adminCMSRoutes);
 
-
+// Disclaimer CMS routes
+app.use('/api/admin', disclaimerRoutes);
 // end new route 
 
 

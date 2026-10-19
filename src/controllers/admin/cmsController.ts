@@ -85,24 +85,60 @@ async function saveBase64Image(
   return `/uploads/cms/proofs/${filename}`;
 }
 
+// export async function getPublicCMS(req: Request, res: Response) {
+//   try {
+//     const [rows] = await pool.query<RowDataPacket[]>(`
+//       SELECT id, type, title, member, description,
+//              video_url, thumbnail_url, amount, reference,
+//              image_url, status, created_at
+//       FROM cms_contents
+//       WHERE (type = 'testimonial' AND status = 'published')
+//          OR (type = 'withdrawal_proof' AND status = 'approved')
+//       ORDER BY created_at DESC
+//     `);
+
+//     return res.json({ success: true, data: rows });
+//   } catch (error) {
+//     console.error('[CMS] Public list error:', error);
+//     return res.status(500).json({
+//       success: false,
+//       message: 'Unable to load CMS content',
+//     });
+//   }
+// }
+
+
 export async function getPublicCMS(req: Request, res: Response) {
   try {
     const [rows] = await pool.query<RowDataPacket[]>(`
-      SELECT id, type, title, member, description,
-             video_url, thumbnail_url, amount, reference,
-             image_url, status, created_at
+      SELECT
+        id,
+        type,
+        title,
+        member,
+        description,
+        video_url,
+        thumbnail_url,
+        amount,
+        reference,
+        image_url,
+        status,
+        created_at,
+        updated_at
       FROM cms_contents
-      WHERE (type = 'testimonial' AND status = 'published')
-         OR (type = 'withdrawal_proof' AND status = 'approved')
       ORDER BY created_at DESC
     `);
 
-    return res.json({ success: true, data: rows });
+    return res.json({
+      success: true,
+      data: rows,
+    });
   } catch (error) {
-    console.error('[CMS] Public list error:', error);
+    console.error("[CMS] Public list error:", error);
+
     return res.status(500).json({
       success: false,
-      message: 'Unable to load CMS content',
+      message: "Unable to load CMS content",
     });
   }
 }
